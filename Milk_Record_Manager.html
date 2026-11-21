@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173b32">
+  <title>Milk Record Manager</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap');
+:root{--bg:#f4f7f5;--surface:#fff;--surface-2:#f8faf9;--text:#1c2b25;--muted:#77847d;--line:#e6ece8;--green:#176b4b;--green-dark:#124d39;--green-soft:#e8f5ee;--blue-soft:#eaf2ff;--orange-soft:#fff2e5;--purple-soft:#f2edff;--shadow:0 12px 35px rgba(29,58,43,.06);--danger:#c53c3c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px}button,input,select,textarea{font:inherit}button{cursor:pointer}.app-shell{min-height:100vh}.sidebar{width:250px;background:#153b31;color:#fff;position:fixed;inset:0 auto 0 0;padding:27px 18px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;padding:0 7px 34px}.brand-icon{width:43px;height:43px;border-radius:14px;background:#ffffff1c;display:grid;place-items:center;font-size:23px}.brand strong{display:block;font-family:Manrope,sans-serif;font-size:16px}.brand small{display:block;color:#a9c5b9;margin-top:3px;font-size:11px}.nav-links{display:grid;gap:7px}.nav-link{display:flex;align-items:center;gap:13px;padding:13px 14px;color:#c4d7ce;text-decoration:none;border-radius:10px;font-weight:600;transition:.2s}.nav-link span{font-size:18px;width:20px;text-align:center}.nav-link:hover,.nav-link.active{background:#ffffff19;color:#fff}.sidebar-note{margin-top:auto;background:#ffffff12;border:1px solid #ffffff14;padding:13px;border-radius:12px;display:flex;gap:9px;align-items:flex-start}.sidebar-note p{font-size:11px;line-height:1.6;color:#c1d4ca;margin:0}.note-icon{font-size:18px}.sidebar-footer{padding:18px 5px 0;color:#9db8ac;font-size:10px;display:flex;justify-content:space-between}.sidebar-footer span{opacity:.7}.main-content{margin-left:250px;max-width:1700px;padding:0 36px 25px}.topbar{height:102px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);margin-bottom:28px}.eyebrow{font-size:9px;letter-spacing:1.4px;color:var(--green);font-weight:800;margin:0 0 5px}.topbar h1{font:800 25px Manrope,sans-serif;margin:0}.top-actions{display:flex;align-items:center;gap:12px}.icon-button{width:39px;height:39px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:17px}.menu-button{display:none}.button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.2s}.button-primary{background:var(--green);color:white}.button-primary:hover{background:var(--green-dark)}.button-outline{background:var(--surface);border:1px solid var(--line);color:var(--text)}.button-outline:hover{border-color:var(--green);color:var(--green)}.button-danger{background:#fff0f0;color:var(--danger);border:1px solid #f4d3d3}.full-width{width:100%}.page{display:none}.page.active{display:block}.welcome-row,.page-intro{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}.welcome-row h2,.page-intro h2{font:800 21px Manrope,sans-serif;margin:0 0 5px}.welcome-row p,.page-intro p{color:var(--muted);margin:0;font-size:12px}.month-picker,.report-filter label{font-size:11px;font-weight:700;color:var(--muted);display:grid;gap:7px}.month-picker input,.report-filter input{min-width:155px}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px}.stat-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 19px;box-shadow:var(--shadow);min-width:0}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;font-weight:600}.stat-icon{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;font-size:15px;background:var(--green-soft);color:var(--green)}.stat-card strong{display:block;font:800 25px Manrope,sans-serif;margin:13px 0 4px;letter-spacing:-.7px}.stat-card small{font-size:10px;color:var(--muted)}.stat-blue .stat-icon{background:var(--blue-soft);color:#3566b5}.stat-orange .stat-icon{background:var(--orange-soft);color:#bd722c}.stat-purple .stat-icon{background:var(--purple-soft);color:#7658bd}.content-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:17px;margin-bottom:18px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);min-width:0}.panel-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.panel-heading h3,.settings-card h3{font:800 14px Manrope,sans-serif;margin:0 0 4px}.panel-heading p{font-size:10px;color:var(--muted);margin:0}.text-link{color:var(--green);font-size:11px;text-decoration:none;font-weight:700}.table-wrap{width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;padding:11px 10px;border-bottom:1px solid var(--line)}td{padding:13px 10px;border-bottom:1px solid var(--line);font-size:11px;font-weight:600}tbody tr:last-child td{border-bottom:0}.empty-state{text-align:center!important;color:var(--muted)!important;padding:30px 12px!important;font-weight:500!important}.payment-total{display:flex;justify-content:space-between;align-items:center;margin:24px 0 12px;font-size:11px;color:var(--muted)}.payment-total strong{font:800 21px Manrope,sans-serif;color:var(--text)}.progress-track{height:8px;background:#f0f2f1;border-radius:20px;overflow:hidden}.progress-fill{height:100%;width:0;background:#249568;border-radius:20px;transition:.3s}.payment-legend{display:flex;justify-content:space-between;gap:8px;margin:13px 0 22px;font-size:10px;color:var(--muted)}.payment-legend span{display:flex;align-items:center;gap:5px}.payment-legend b{color:var(--text)}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.paid-dot{background:#249568}.pending-dot{background:#e6a04a}.panel-emoji{font-size:22px;color:var(--green);background:var(--green-soft);width:37px;height:37px;border-radius:11px;display:grid;place-items:center}.quick-panel{margin-bottom:18px}.quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.quick-action{border:1px solid var(--line);background:var(--surface-2);border-radius:11px;padding:15px;text-align:left;color:var(--text);display:grid;gap:5px}.quick-action>span{font-size:19px;color:var(--green);margin-bottom:4px}.quick-action b{font-size:11px}.quick-action small{font-size:10px;color:var(--muted)}.quick-action:hover{border-color:#9cc8b1;background:var(--green-soft)}.app-footer{text-align:center;padding:25px 0 5px;color:var(--muted);font-size:10px}.app-footer span{padding:0 5px}.page-intro{margin-bottom:20px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:17px}.toolbar input,.toolbar select,.month-picker input,.report-filter input{border:1px solid var(--line);border-radius:8px;background:var(--surface-2);padding:10px 11px;color:var(--text);font-size:11px;outline:none}.toolbar input[type=search]{flex:1;min-width:170px}.toolbar input[type=month]{width:145px}.toolbar select{min-width:130px}.table-footer{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:10px;border-top:1px solid var(--line);padding-top:14px;margin-top:5px}.status{display:inline-flex;padding:5px 8px;border-radius:20px;font-size:9px;font-weight:800;text-transform:capitalize}.status.paid{background:#e7f5ed;color:#218052}.status.pending{background:#fff3df;color:#a96b1c}.row-actions{display:flex;gap:5px}.mini-action{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:6px;padding:5px 7px;font-size:10px}.mini-action:hover{border-color:var(--green);color:var(--green)}.report-actions{display:flex;gap:8px}.report-filter{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.report-period{color:var(--muted);font-size:11px}.report-stats{margin-bottom:18px}.report-total-row{border-top:1px solid var(--line);margin-top:10px;padding-top:15px;display:flex;justify-content:space-between;font-size:12px}.report-total-row strong{font-family:Manrope,sans-serif}.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.settings-card{padding:23px}.settings-icon{font-size:25px;margin-bottom:13px}.settings-card p,.privacy-note p{color:var(--muted);font-size:11px;line-height:1.7;min-height:55px;margin:7px 0 18px}.file-button{cursor:pointer}.danger-card{border-color:#f0dada}.privacy-note{margin-top:17px}.privacy-note p{min-height:0;margin-bottom:0}.modal-backdrop{position:fixed;inset:0;background:#10231dcc;display:none;align-items:center;justify-content:center;padding:18px;z-index:50;overflow:auto}.modal-backdrop.open{display:flex}.modal{width:min(100%,510px);background:var(--surface);border-radius:17px;padding:23px;box-shadow:0 25px 80px #0003;max-height:95vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.modal-header h2{font:800 20px Manrope,sans-serif;margin:0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-field{display:grid;gap:7px;font-size:11px;font-weight:700;color:var(--muted)}.form-field.full{grid-column:1/-1}.form-field input,.form-field select,.form-field textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--text);outline:none;font-size:12px}.form-field input:focus,.form-field select:focus,.form-field textarea:focus,.toolbar input:focus{border-color:#6eaa8b;box-shadow:0 0 0 3px #1a87541a}.form-field textarea{resize:vertical}.calculation-preview{margin-top:17px;padding:14px;background:var(--green-soft);border-radius:10px;display:flex;justify-content:space-between;gap:12px}.calculation-preview div{display:grid;gap:5px}.calculation-preview span{font-size:10px;color:var(--green-dark)}.calculation-preview strong{font:800 16px Manrope,sans-serif;color:var(--green-dark)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:19px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#173b31;color:white;padding:12px 17px;border-radius:9px;font-size:12px;font-weight:600;box-shadow:0 8px 25px #0002;opacity:0;pointer-events:none;transition:.25s;z-index:100;max-width:calc(100% - 30px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+body.dark{--bg:#111b17;--surface:#19251f;--surface-2:#202e27;--text:#e9f1ec;--muted:#a0afa6;--line:#304239;--green-soft:#203e30;--blue-soft:#24374e;--orange-soft:#473523;--purple-soft:#352c4d;--shadow:0 12px 35px #0002}.dark .button-outline,.dark .icon-button,.dark .mini-action{background:var(--surface)}.dark .progress-track{background:#2a3931}.dark .status.paid{background:#203e30;color:#85d5a8}.dark .status.pending{background:#493a25;color:#f0bd71}.dark .button-danger{background:#422727;border-color:#603535}.dark .calculation-preview{background:#203e30}.dark .calculation-preview span,.dark .calculation-preview strong{color:#a7e0bd}
+@media(max-width:1100px){.main-content{padding:0 23px 20px}.sidebar{width:220px}.main-content{margin-left:220px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:1fr}.payment-panel{max-width:none}}
+@media(max-width:720px){.sidebar{transform:translateX(-100%);transition:transform .25s;width:260px;box-shadow:10px 0 30px #0002}.sidebar.open{transform:translateX(0)}.main-content{margin-left:0;padding:0 15px 18px}.topbar{height:78px;margin-bottom:20px;gap:10px}.menu-button{display:block;flex-shrink:0}.topbar>div:nth-child(2){margin-right:auto}.topbar h1{font-size:20px}.topbar .eyebrow{font-size:8px}.top-add{padding:10px;font-size:10px}.top-actions{gap:6px}.icon-button{width:35px;height:35px}.welcome-row,.page-intro{align-items:flex-start}.welcome-row h2,.page-intro h2{font-size:18px}.welcome-row p,.page-intro p{font-size:11px}.month-picker input{min-width:130px;width:130px}.stats-grid{gap:10px}.stat-card{padding:14px}.stat-card strong{font-size:21px}.stat-top{font-size:10px}.content-grid{gap:12px}.panel{padding:15px}.quick-actions{grid-template-columns:1fr}.quick-action{grid-template-columns:28px 1fr;align-items:center;column-gap:8px}.quick-action>span{grid-row:span 2}.quick-action small{grid-column:2}.toolbar>*{flex:1}.toolbar input[type=search]{flex-basis:100%}.toolbar input[type=month],.toolbar select{min-width:0}.table-footer{font-size:9px}.settings-grid{grid-template-columns:1fr}.report-filter{align-items:flex-start;gap:12px}.report-actions{flex-wrap:wrap}.report-actions .button{padding:9px 10px}.page-intro{flex-wrap:wrap}.page-intro>.button{margin-left:auto}.app-footer{line-height:1.7}}
+@media(max-width:390px){.top-add{font-size:0;width:36px;height:36px;padding:0}.top-add:first-letter{font-size:17px}.stats-grid{gap:8px}.stat-card{padding:12px}.stat-card strong{font-size:18px}.stat-card small{font-size:9px}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.calculation-preview strong{font-size:14px}.report-filter{flex-direction:column}}
+@media print{body{background:#fff;color:#111}.sidebar,.topbar,.page:not(#reportsPage),.report-actions,.report-filter,.app-footer{display:none!important}.main-content{margin:0;padding:0}.page#reportsPage{display:block!important}.panel,.stat-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.stats-grid{grid-template-columns:repeat(4,1fr)}.stat-card strong{font-size:18px}th,td{color:#111!important}}
+
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Milk Record Manager home">
+        <span class="brand-icon">🥛</span>
+        <span><strong>Milk Manager</strong><small>Home records</small></span>
+      </a>
+      <nav class="nav-links">
+        <a class="nav-link active" href="#dashboard" data-page="dashboard"><span>▦</span> Dashboard</a>
+        <a class="nav-link" href="#records" data-page="records"><span>▤</span> Daily records</a>
+        <a class="nav-link" href="#reports" data-page="reports"><span>▥</span> Monthly reports</a>
+        <a class="nav-link" href="#settings" data-page="settings"><span>⚙</span> Backup & settings</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="note-icon">💡</span>
+        <p>Your records are saved on this device in your browser.</p>
+      </div>
+      <div class="sidebar-footer">Milk Record Manager <span>v1.0</span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" aria-label="Open menu">☰</button>
+        <div>
+          <p class="eyebrow" id="todayLabel">YOUR HOME MILK TRACKER</p>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="themeButton" title="Toggle dark mode" aria-label="Toggle dark mode">☾</button>
+          <button class="button button-primary top-add" id="topAddButton">＋ Add record</button>
+        </div>
+      </header>
+
+      <section class="page active" id="dashboardPage">
+        <div class="welcome-row">
+          <div>
+            <h2>Good day! <span>👋</span></h2>
+            <p>Here is your household milk summary.</p>
+          </div>
+          <label class="month-picker">Month
+            <input type="month" id="dashboardMonth">
+          </label>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card stat-green">
+            <div class="stat-top"><span>Milk this month</span><span class="stat-icon">🥛</span></div>
+            <strong id="monthLitres">0.00 L</strong><small>Total quantity recorded</small>
+          </article>
+          <article class="stat-card stat-blue">
+            <div class="stat-top"><span>Monthly amount</span><span class="stat-icon">₹</span></div>
+            <strong id="monthAmount">₹0.00</strong><small>Total milk cost</small>
+          </article>
+          <article class="stat-card stat-orange">
+            <div class="stat-top"><span>Today's milk</span><span class="stat-icon">☀</span></div>
+            <strong id="todayLitres">0.00 L</strong><small id="todayAmount">₹0.00 today</small>
+          </article>
+          <article class="stat-card stat-purple">
+            <div class="stat-top"><span>Average per day</span><span class="stat-icon">↗</span></div>
+            <strong id="dailyAverage">0.00 L</strong><small id="entryCount">0 recorded days</small>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel recent-panel">
+            <div class="panel-heading">
+              <div><h3>Recent records</h3><p>Your latest milk entries</p></div>
+              <a class="text-link" href="#records" data-page="records">View all →</a>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Date</th><th>Morning</th><th>Evening</th><th>Total</th><th>Amount</th></tr></thead>
+                <tbody id="recentTableBody"><tr><td colspan="5" class="empty-state">No records yet. Add your first record.</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+          <section class="panel payment-panel">
+            <div class="panel-heading"><div><h3>Payment summary</h3><p>For the selected month</p></div><span class="panel-emoji">₹</span></div>
+            <div class="payment-total"><span>Pending amount</span><strong id="pendingAmount">₹0.00</strong></div>
+            <div class="progress-track"><div id="paidProgress" class="progress-fill"></div></div>
+            <div class="payment-legend"><span><i class="dot paid-dot"></i> Paid <b id="paidAmount">₹0.00</b></span><span><i class="dot pending-dot"></i> Pending <b id="pendingShare">0%</b></span></div>
+            <button class="button button-outline full-width" data-go="records">Manage payments</button>
+          </section>
+        </div>
+
+        <section class="panel quick-panel">
+          <div class="panel-heading"><div><h3>Quick actions</h3><p>Manage your milk records</p></div></div>
+          <div class="quick-actions">
+            <button class="quick-action" id="quickAdd"><span>＋</span><b>Add daily record</b><small>Enter today's milk</small></button>
+            <button class="quick-action" data-go="reports"><span>▥</span><b>View monthly report</b><small>Check monthly totals</small></button>
+            <button class="quick-action" id="quickExport"><span>⇩</span><b>Export records</b><small>Download a CSV file</small></button>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" id="recordsPage">
+        <div class="page-intro">
+          <div><h2>Daily milk records</h2><p>Add, edit, search and manage your household milk entries.</p></div>
+          <button class="button button-primary" id="addRecordButton">＋ Add new record</button>
+        </div>
+        <section class="panel">
+          <div class="toolbar">
+            <input type="search" id="searchInput" placeholder="Search date or notes…" aria-label="Search records">
+            <input type="month" id="recordsMonth" aria-label="Filter by month">
+            <select id="paymentFilter" aria-label="Filter by payment status"><option value="all">All payments</option><option value="paid">Paid</option><option value="pending">Pending</option></select>
+            <button class="button button-outline" id="clearFilters">Clear filters</button>
+          </div>
+          <div class="table-wrap">
+            <table class="records-table">
+              <thead><tr><th>Date</th><th>Morning</th><th>Evening</th><th>Total milk</th><th>Rate / L</th><th>Amount</th><th>Payment</th><th>Actions</th></tr></thead>
+              <tbody id="recordsTableBody"><tr><td colspan="8" class="empty-state">No records found.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="table-footer"><span id="recordsCount">0 records</span><span>Amounts are calculated automatically.</span></div>
+        </section>
+      </section>
+
+      <section class="page" id="reportsPage">
+        <div class="page-intro">
+          <div><h2>Monthly reports</h2><p>Review your monthly milk usage and household expense.</p></div>
+          <div class="report-actions"><button class="button button-outline" id="printReport">⎙ Print</button><button class="button button-primary" id="reportExport">⇩ Export CSV</button></div>
+        </div>
+        <section class="panel report-filter">
+          <label>Select report month<input type="month" id="reportMonth"></label>
+          <div class="report-period" id="reportPeriod">Monthly summary</div>
+        </section>
+        <div class="stats-grid report-stats">
+          <article class="stat-card stat-green"><div class="stat-top"><span>Total milk</span><span class="stat-icon">🥛</span></div><strong id="reportLitres">0.00 L</strong><small>Morning + evening</small></article>
+          <article class="stat-card stat-blue"><div class="stat-top"><span>Total expense</span><span class="stat-icon">₹</span></div><strong id="reportAmount">₹0.00</strong><small>Monthly milk cost</small></article>
+          <article class="stat-card stat-orange"><div class="stat-top"><span>Recorded days</span><span class="stat-icon">▦</span></div><strong id="reportDays">0</strong><small>Days with entries</small></article>
+          <article class="stat-card stat-purple"><div class="stat-top"><span>Daily average</span><span class="stat-icon">↗</span></div><strong id="reportAverage">0.00 L</strong><small>Per recorded day</small></article>
+        </div>
+        <section class="panel">
+          <div class="panel-heading"><div><h3>Monthly breakdown</h3><p>All daily entries for this month</p></div></div>
+          <div class="table-wrap">
+            <table><thead><tr><th>Date</th><th>Morning (L)</th><th>Evening (L)</th><th>Total (L)</th><th>Rate / L</th><th>Amount</th><th>Payment</th></tr></thead>
+            <tbody id="reportTableBody"><tr><td colspan="7" class="empty-state">No records for this month.</td></tr></tbody></table>
+          </div>
+          <div class="report-total-row"><span>Monthly total</span><strong id="reportGrandTotal">0.00 L · ₹0.00</strong></div>
+        </section>
+      </section>
+
+      <section class="page" id="settingsPage">
+        <div class="page-intro"><div><h2>Backup & settings</h2><p>Keep your household records safe and manage your preferences.</p></div></div>
+        <div class="settings-grid">
+          <section class="panel settings-card">
+            <div class="settings-icon">💾</div><h3>Backup your records</h3><p>Download all milk records as a JSON backup. You can restore it later on this device or another device.</p>
+            <button class="button button-primary full-width" id="backupButton">Download backup</button>
+          </section>
+          <section class="panel settings-card">
+            <div class="settings-icon">📂</div><h3>Restore backup</h3><p>Import a backup JSON file. Imported records will be added or updated by date.</p>
+            <label class="button button-outline full-width file-button" for="restoreInput">Choose backup file</label>
+            <input type="file" id="restoreInput" accept=".json,application/json" hidden>
+          </section>
+          <section class="panel settings-card">
+            <div class="settings-icon">📊</div><h3>Export to CSV</h3><p>Download your records in a spreadsheet-friendly format that opens in Excel or Google Sheets.</p>
+            <button class="button button-outline full-width" id="settingsExport">Export all records</button>
+          </section>
+          <section class="panel settings-card danger-card">
+            <div class="settings-icon">⚠️</div><h3>Delete all records</h3><p>Permanently clear all milk records saved in this browser. Download a backup first if needed.</p>
+            <button class="button button-danger full-width" id="deleteAllButton">Delete all records</button>
+          </section>
+        </div>
+        <section class="panel privacy-note"><strong>About your data</strong><p>This website stores records in your browser's LocalStorage. Data stays on this device and is not automatically synced to other devices. Clearing browser data may delete your records, so keep regular backups.</p></section>
+      </section>
+
+      <footer class="app-footer">Made for simple household milk tracking <span>•</span> ₹ Indian Rupees</footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="recordModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><p class="eyebrow">DAILY ENTRY</p><h2 id="modalTitle">Add milk record</h2></div><button class="icon-button" id="closeModal" aria-label="Close">✕</button></div>
+      <form id="recordForm">
+        <input type="hidden" id="editId">
+        <div class="form-grid">
+          <label class="form-field full">Date<input type="date" id="recordDate" required></label>
+          <label class="form-field">Morning milk (L)<input type="number" id="morningQty" min="0" max="100" step="0.01" value="1" required></label>
+          <label class="form-field">Evening milk (L)<input type="number" id="eveningQty" min="0" max="100" step="0.01" value="1" required></label>
+          <label class="form-field full">Price per litre (₹)<input type="number" id="milkRate" min="0" max="100000" step="0.01" value="60" required></label>
+          <label class="form-field full">Payment status<select id="paymentStatus"><option value="pending">Pending</option><option value="paid">Paid</option></select></label>
+          <label class="form-field full">Notes (optional)<textarea id="recordNotes" rows="3" placeholder="Example: Extra milk for guests"></textarea></label>
+        </div>
+        <div class="calculation-preview"><div><span>Total quantity</span><strong id="previewQty">2.00 L</strong></div><div><span>Daily amount</span><strong id="previewAmount">₹120.00</strong></div></div>
+        <div class="modal-actions"><button type="button" class="button button-outline" id="cancelModal">Cancel</button><button type="submit" class="button button-primary" id="saveRecordButton">Save record</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+(() => {
+  "use strict";
+  const STORAGE_KEY = "milkManagerRecords_v1";
+  const THEME_KEY = "milkManagerTheme";
+  const $ = (id) => document.getElementById(id);
+  const todayISO = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  };
+  const currentMonth = () => todayISO().slice(0,7);
+  const money = (value) => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value)||0);
+  const litres = (value) => `${(Number(value)||0).toFixed(2)} L`;
+  const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  let records = loadRecords();
+  let toastTimer;
+  let currentPage = "dashboard";
+
+  function loadRecords() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(parsed) ? parsed.filter(validRecord).sort((a,b)=>b.date.localeCompare(a.date)) : [];
+    } catch { return []; }
+  }
+  function validRecord(r) {
+    return r && typeof r.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(r.date)
+      && Number.isFinite(Number(r.morning)) && Number.isFinite(Number(r.evening))
+      && Number.isFinite(Number(r.rate)) && ["paid","pending"].includes(r.status);
+  }
+  function saveRecords() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  }
+  function totalQty(r) { return Number(r.morning)+Number(r.evening); }
+  function totalAmount(r) { return totalQty(r)*Number(r.rate); }
+  function monthRecords(month) { return records.filter(r=>r.date.startsWith(month)); }
+  function showToast(message) {
+    const el=$("toast"); el.textContent=message; el.classList.add("show");
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+  }
+  function formatDate(date) {
+    return new Date(`${date}T00:00:00`).toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+  }
+  function monthName(month) {
+    if(!month) return "Selected month";
+    const [y,m]=month.split("-").map(Number);
+    return new Date(y,m-1,1).toLocaleDateString("en-IN",{month:"long",year:"numeric"});
+  }
+  function setMonthInputs() {
+    $("dashboardMonth").value=currentMonth();
+    $("recordsMonth").value=currentMonth();
+    $("reportMonth").value=currentMonth();
+    $("todayLabel").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).toUpperCase();
+  }
+  function monthSummary(month) {
+    const list=monthRecords(month);
+    const qty=list.reduce((s,r)=>s+totalQty(r),0);
+    const amount=list.reduce((s,r)=>s+totalAmount(r),0);
+    const paid=list.filter(r=>r.status==="paid").reduce((s,r)=>s+totalAmount(r),0);
+    return {list,qty,amount,paid,pending:amount-paid,days:list.length,average:list.length?qty/list.length:0};
+  }
+  function renderDashboard() {
+    const month=$("dashboardMonth").value||currentMonth(), s=monthSummary(month);
+    $("monthLitres").textContent=litres(s.qty); $("monthAmount").textContent=money(s.amount);
+    $("dailyAverage").textContent=litres(s.average); $("entryCount").textContent=`${s.days} recorded ${s.days===1?"day":"days"}`;
+    const today=records.find(r=>r.date===todayISO());
+    $("todayLitres").textContent=litres(today?totalQty(today):0);
+    $("todayAmount").textContent=`${money(today?totalAmount(today):0)} today`;
+    $("pendingAmount").textContent=money(s.pending); $("paidAmount").textContent=money(s.paid);
+    $("pendingShare").textContent=`${s.amount?Math.round(s.pending/s.amount*100):0}%`;
+    $("paidProgress").style.width=`${s.amount?Math.min(100,s.paid/s.amount*100):0}%`;
+    const recent=s.list.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6);
+    $("recentTableBody").innerHTML=recent.length?recent.map(r=>`<tr><td>${formatDate(r.date)}</td><td>${litres(r.morning)}</td><td>${litres(r.evening)}</td><td>${litres(totalQty(r))}</td><td>${money(totalAmount(r))}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">No records for ${escapeHTML(monthName(month))}. Add your first record.</td></tr>`;
+  }
+  function renderRecords() {
+    const search=$("searchInput").value.trim().toLowerCase();
+    const month=$("recordsMonth").value;
+    const status=$("paymentFilter").value;
+    const list=records.filter(r=>(!month||r.date.startsWith(month))&& (status==="all"||r.status===status) && (!search||r.date.includes(search)||formatDate(r.date).toLowerCase().includes(search)||(r.notes||"").toLowerCase().includes(search)));
+    $("recordsTableBody").innerHTML=list.length?list.map(r=>`<tr>
+      <td>${formatDate(r.date)}</td><td>${litres(r.morning)}</td><td>${litres(r.evening)}</td><td>${litres(totalQty(r))}</td><td>${money(r.rate)}</td><td>${money(totalAmount(r))}</td>
+      <td><span class="status ${r.status}">${r.status}</span></td>
+      <td><div class="row-actions"><button class="mini-action" data-edit="${escapeHTML(r.id)}" aria-label="Edit record">Edit</button><button class="mini-action" data-delete="${escapeHTML(r.id)}" aria-label="Delete record">Delete</button></div></td>
+    </tr>`).join(""):`<tr><td colspan="8" class="empty-state">No records found. Try clearing the filters or add a record.</td></tr>`;
+    $("recordsCount").textContent=`${list.length} ${list.length===1?"record":"records"}`;
+  }
+  function renderReport() {
+    const month=$("reportMonth").value||currentMonth(), s=monthSummary(month);
+    $("reportPeriod").textContent=monthName(month);
+    $("reportLitres").textContent=litres(s.qty); $("reportAmount").textContent=money(s.amount);
+    $("reportDays").textContent=s.days; $("reportAverage").textContent=litres(s.average);
+    const list=s.list.slice().sort((a,b)=>a.date.localeCompare(b.date));
+    $("reportTableBody").innerHTML=list.length?list.map(r=>`<tr><td>${formatDate(r.date)}</td><td>${Number(r.morning).toFixed(2)}</td><td>${Number(r.evening).toFixed(2)}</td><td>${totalQty(r).toFixed(2)}</td><td>${money(r.rate)}</td><td>${money(totalAmount(r))}</td><td><span class="status ${r.status}">${r.status}</span></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No records for ${escapeHTML(monthName(month))}.</td></tr>`;
+    $("reportGrandTotal").textContent=`${s.qty.toFixed(2)} L · ${money(s.amount)}`;
+  }
+  function renderAll() { renderDashboard(); renderRecords(); renderReport(); }
+  function navigate(page) {
+    currentPage=page;
+    document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===`${page}Page`));
+    document.querySelectorAll(".nav-link").forEach(a=>a.classList.toggle("active",a.dataset.page===page));
+    const titles={dashboard:"Dashboard",records:"Daily records",reports:"Monthly reports",settings:"Backup & settings"};
+    $("pageTitle").textContent=titles[page]||"Dashboard";
+    $("sidebar").classList.remove("open");
+    if(page==="dashboard")renderDashboard(); if(page==="records")renderRecords(); if(page==="reports")renderReport();
+    history.replaceState(null,"",`#${page}`);
+  }
+  function openModal(record=null) {
+    $("recordForm").reset();
+    $("editId").value=record?.id||"";
+    $("modalTitle").textContent=record?"Edit milk record":"Add milk record";
+    $("saveRecordButton").textContent=record?"Update record":"Save record";
+    $("recordDate").value=record?.date||todayISO();
+    $("morningQty").value=record?.morning??1;
+    $("eveningQty").value=record?.evening??1;
+    $("milkRate").value=record?.rate??60;
+    $("paymentStatus").value=record?.status||"pending";
+    $("recordNotes").value=record?.notes||"";
+    updatePreview();
+    $("recordModal").classList.add("open"); $("recordModal").setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+    setTimeout(()=>$("recordDate").focus(),50);
+  }
+  function closeModal() { $("recordModal").classList.remove("open"); $("recordModal").setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
+  function updatePreview() {
+    const morning=Math.max(0,Number($("morningQty").value)||0), evening=Math.max(0,Number($("eveningQty").value)||0), rate=Math.max(0,Number($("milkRate").value)||0);
+    $("previewQty").textContent=litres(morning+evening); $("previewAmount").textContent=money((morning+evening)*rate);
+  }
+  function submitRecord(event) {
+    event.preventDefault();
+    const date=$("recordDate").value, morning=Number($("morningQty").value), evening=Number($("eveningQty").value), rate=Number($("milkRate").value), id=$("editId").value;
+    if(!date){showToast("Please select a date.");return;}
+    if(!Number.isFinite(morning)||!Number.isFinite(evening)||morning<0||evening<0||morning+evening<=0){showToast("Enter a milk quantity greater than zero.");return;}
+    if(!Number.isFinite(rate)||rate<=0){showToast("Enter a price per litre greater than zero.");return;}
+    const duplicate=records.find(r=>r.date===date&&r.id!==id);
+    if(duplicate&&!confirm("A record already exists for this date. Replace it with this entry?"))return;
+    const record={id:id||`${Date.now()}_${Math.random().toString(36).slice(2,8)}`,date,morning,evening,rate,status:$("paymentStatus").value,notes:$("recordNotes").value.trim()};
+    if(duplicate)records=records.filter(r=>r.id!==duplicate.id);
+    if(id)records=records.filter(r=>r.id!==id);
+    records.push(record); records.sort((a,b)=>b.date.localeCompare(a.date));
+    saveRecords(); closeModal(); renderAll(); showToast(id?"Record updated successfully.":"Milk record saved successfully.");
+  }
+  function deleteRecord(id) {
+    const record=records.find(r=>r.id===id); if(!record)return;
+    if(!confirm(`Delete the milk record for ${formatDate(record.date)}?`))return;
+    records=records.filter(r=>r.id!==id); saveRecords(); renderAll(); showToast("Record deleted.");
+  }
+  function exportCSV(month=null) {
+    const list=(month?monthRecords(month):records).slice().sort((a,b)=>a.date.localeCompare(b.date));
+    if(!list.length){showToast("There are no records to export.");return;}
+    const rows=[["Date","Morning milk (L)","Evening milk (L)","Total milk (L)","Price per litre (INR)","Amount (INR)","Payment status","Notes"],...list.map(r=>[r.date,Number(r.morning).toFixed(2),Number(r.evening).toFixed(2),totalQty(r).toFixed(2),Number(r.rate).toFixed(2),totalAmount(r).toFixed(2),r.status,r.notes||""])];
+    const csv=rows.map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+    downloadBlob("\uFEFF"+csv,`milk-records${month?`-${month}`:""}.csv`,"text/csv;charset=utf-8;");
+    showToast("CSV file downloaded.");
+  }
+  function downloadBlob(content,filename,type) {
+    const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  }
+  function backup() {
+    const data={app:"Milk Record Manager",version:1,exportedAt:new Date().toISOString(),records};
+    downloadBlob(JSON.stringify(data,null,2),`milk-record-backup-${todayISO()}.json`,"application/json");
+    showToast("Backup downloaded.");
+  }
+  async function restore(file) {
+    try {
+      const parsed=JSON.parse(await file.text()), incoming=Array.isArray(parsed)?parsed:parsed.records;
+      if(!Array.isArray(incoming))throw new Error("Invalid backup format");
+      const valid=incoming.filter(validRecord).map(r=>({...r,id:String(r.id||`${Date.now()}_${Math.random()}`),morning:Number(r.morning),evening:Number(r.evening),rate:Number(r.rate),notes:String(r.notes||"")}));
+      if(!valid.length)throw new Error("No valid records found in this file");
+      if(!confirm(`Import ${valid.length} record(s)? Existing entries with the same date will be replaced.`))return;
+      const byDate=new Map(records.map(r=>[r.date,r]));
+      valid.forEach(r=>byDate.set(r.date,r));
+      records=[...byDate.values()].sort((a,b)=>b.date.localeCompare(a.date));
+      saveRecords();renderAll();showToast(`${valid.length} record(s) imported.`);
+    } catch(err) { showToast(`Could not restore backup: ${err.message}`); }
+    finally { $("restoreInput").value=""; }
+  }
+  function bindEvents() {
+    $("recordForm").addEventListener("submit",submitRecord);
+    ["morningQty","eveningQty","milkRate"].forEach(id=>$(id).addEventListener("input",updatePreview));
+    ["closeModal","cancelModal"].forEach(id=>$(id).addEventListener("click",closeModal));
+    $("recordModal").addEventListener("click",e=>{if(e.target===$("recordModal"))closeModal();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+    ["topAddButton","addRecordButton","quickAdd"].forEach(id=>$(id).addEventListener("click",()=>openModal()));
+    $("dashboardMonth").addEventListener("change",renderDashboard);
+    $("recordsMonth").addEventListener("change",renderRecords);
+    $("searchInput").addEventListener("input",renderRecords);
+    $("paymentFilter").addEventListener("change",renderRecords);
+    $("clearFilters").addEventListener("click",()=>{$("searchInput").value="";$("recordsMonth").value="";$("paymentFilter").value="all";renderRecords();});
+    $("reportMonth").addEventListener("change",renderReport);
+    $("printReport").addEventListener("click",()=>window.print());
+    ["reportExport","settingsExport","quickExport"].forEach(id=>$(id).addEventListener("click",()=>exportCSV(id==="reportExport"?$("reportMonth").value:null)));
+    $("backupButton").addEventListener("click",backup);
+    $("restoreInput").addEventListener("change",e=>{if(e.target.files[0])restore(e.target.files[0]);});
+    $("deleteAllButton").addEventListener("click",()=>{if(!records.length){showToast("There are no records to delete.");return;}if(confirm("Delete ALL milk records from this browser? This cannot be undone.")){records=[];saveRecords();renderAll();showToast("All records deleted.");}});
+    $("themeButton").addEventListener("click",toggleTheme);
+    $("menuButton").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+    document.addEventListener("click",e=>{
+      const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]"),go=e.target.closest("[data-go]"),nav=e.target.closest("[data-page]");
+      if(edit){const r=records.find(x=>x.id===edit.dataset.edit);if(r)openModal(r);}
+      if(del)deleteRecord(del.dataset.delete);
+      if(go)navigate(go.dataset.go);
+      if(nav){e.preventDefault();navigate(nav.dataset.page);}
+    });
+  }
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+    const dark=document.body.classList.contains("dark");
+    localStorage.setItem(THEME_KEY,dark?"dark":"light");
+    $("themeButton").textContent=dark?"☀":"☾";
+  }
+  function init() {
+    setMonthInputs();
+    if(localStorage.getItem(THEME_KEY)==="dark"){document.body.classList.add("dark");$("themeButton").textContent="☀";}
+    bindEvents();renderAll();
+    const initial=location.hash.replace("#","");
+    if(["dashboard","records","reports","settings"].includes(initial))navigate(initial);
+  }
+  init();
+})();
+</script>
+</body>
+</html>
